@@ -1,4 +1,4 @@
-# loggi-client-php
+# rudl-client-php
 Cluster logging (UDP) client driver for PHP 5/7
 
 
@@ -52,4 +52,6 @@ Register Loggi Error/Exception Logging:
 
 
 
-### Request-Based ressource logging
+### Request-Based resource logging
+
+

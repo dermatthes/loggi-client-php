@@ -6,16 +6,16 @@
  * Time: 4:59 AM
  */
 
-namespace Loggi;
+namespace Rudl\Client;
 
 
-class LogDriver
+class RudlLogDriver
 {
 
-    public function __construct(string $token, string $endpointUrl)
+    public function __construct()
     {
     }
 
-    public function set
+
 
 }

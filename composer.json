@@ -1,0 +1,25 @@
+{
+  "name": "rudl/logger",
+  "type": "library",
+  "description": "Rudl UDP cluster logging library (PSR4 compliant)",
+  "keywords": ["Html", "parsing", "tokenizer", "html5"],
+  "homepage": "http://leuffen.de",
+  "license": "MIT",
+  "authors": [
+    {
+      "name": "Matthias Leuffen",
+      "email": "matthes@leuffen.de",
+      "homepage": "http://leuffen.de"
+    }
+  ],
+  "require": {
+    "php": ">=5.4"
+  },
+  "autoload": {
+    "psr-4": { "Rudl\\Client\\": "src/" },
+    "exclude-from-classmap": [
+      "/test/"
+    ]
+  },
+  "minimum-stability": "dev"
+}
