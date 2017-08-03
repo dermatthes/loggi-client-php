@@ -35,7 +35,7 @@ class RudlClient
     }
 
 
-    public function sendMessage ($sysid) {
+    public function sendMessage ($msgId, array $message) {
         $ru = getrusage();
         $rr = [
             11,
@@ -47,7 +47,7 @@ class RudlClient
             $ru["ru_utime.tv_sec"] + ($ru["ru_utime.tv_usec"] * 0.000001) + 0.001,
             $ru["ru_stime.tv_sec"] + ($ru["ru_utime.tv_usec"] * 0.000001) + 0.001
         ];
-        $msg = json_encode($rr);
+        $msg = "G{$msgId}:" . json_encode($rr);
         socket_sendto($this->mSock, $msg, strlen($msg), 0, $this->mServerIp, $this->mServerPort);
     }
 
