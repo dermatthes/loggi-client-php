@@ -57,7 +57,7 @@ class RudlClient
                 @$_SERVER["HTTP_X_FORWARDED_FOR"],
                 memory_get_peak_usage(),
                 ($ru["ru_utime.tv_sec"] + ($ru["ru_utime.tv_usec"] * 0.000001)) - ($this->mStartupRu["ru_utime.tv_sec"] + ($this->mStartupRu["ru_utime.tv_usec"] * 0.000001)) + 0.001,
-                ($ru["ru_stime.tv_sec"] + ($ru["ru_utime.tv_usec"] * 0.000001)) - ($this->mStartupRu["ru_stime.tv_sec"] + ($this->mStartupRu["ru_utime.tv_usec"] * 0.000001)) + 0.001,
+                ($ru["ru_stime.tv_sec"] + ($ru["ru_stime.tv_usec"] * 0.000001)) - ($this->mStartupRu["ru_stime.tv_sec"] + ($this->mStartupRu["ru_stime.tv_usec"] * 0.000001)) + 0.001,
                 "//" . @$_SERVER["HTTP_HOST"] . @$_SERVER["REQUEST_URI"],
                 (microtime(true) - $this->mStartTime)
             ];
