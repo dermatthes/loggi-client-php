@@ -6,8 +6,9 @@
  * Time: 11:35
  */
 
-for ($i=0; $i<100000000; $i++) {
-    syslog(2, "Some message $i");
+for ($i=0; $i<1000000; $i++) {
+    syslog(LOG_NOTICE, "Some message $i");
+    usleep(300000);
     if ($i % 1000 == 0)
         echo "\n$i";
 }

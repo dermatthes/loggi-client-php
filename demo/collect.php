@@ -9,7 +9,7 @@
 require __DIR__ . "/../vendor/autoload.php";
 
 
-for($i=0; $i<100000; $i++);
+for($i=0; $i<10; $i++);
 
 print_r (getrusage());
 

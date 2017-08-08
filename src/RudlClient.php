@@ -39,7 +39,7 @@ class RudlClient
         $ru = getrusage();
         $rr = [
             11,
-            $sysid,
+            $this->mSysId,
             gethostname(),
             $this->mAccountId,
             @$_SERVER["HTTP_X_FORWARDED_FOR"],
@@ -63,9 +63,10 @@ class RudlClient
                 @$_SERVER["HTTP_X_FORWARDED_FOR"],
                 memory_get_peak_usage(),
                 $ru["ru_utime.tv_sec"] + ($ru["ru_utime.tv_usec"] * 0.000001) + 0.001,
-                $ru["ru_stime.tv_sec"] + ($ru["ru_utime.tv_usec"] * 0.000001) + 0.001
+                $ru["ru_stime.tv_sec"] + ($ru["ru_utime.tv_usec"] * 0.000001) + 0.001,
+                @$_SERVER["SERVER_PROTOCOL"] . "://" . @$_SERVER["HTTP_HOST"] . @$_SERVER["PHP_SELF"]
             ];
-            $msg = json_encode($rr);
+            $msg = "G11:" . json_encode($rr);
             socket_sendto($this->mSock, $msg, strlen($msg), 0, $this->mServerIp, $this->mServerPort);
         });
     }
