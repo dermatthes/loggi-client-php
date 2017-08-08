@@ -18,11 +18,14 @@ class RudlClient
     private $mSysId;
     private $mAccountId = null;
 
+    private $mStartTime = null;
+
     public function __construct($logIp, $logPort=62111)
     {
         $this->mSock = socket_create(AF_INET, SOCK_DGRAM, SOL_UDP);
         $this->mServerIp = $logIp;
         $this->mServerPort = $logPort;
+        $this->mStartTime = microtime(true);
     }
 
 
@@ -64,7 +67,8 @@ class RudlClient
                 memory_get_peak_usage(),
                 $ru["ru_utime.tv_sec"] + ($ru["ru_utime.tv_usec"] * 0.000001) + 0.001,
                 $ru["ru_stime.tv_sec"] + ($ru["ru_utime.tv_usec"] * 0.000001) + 0.001,
-                @$_SERVER["SERVER_PROTOCOL"] . "://" . @$_SERVER["HTTP_HOST"] . @$_SERVER["PHP_SELF"]
+                "//" . @$_SERVER["HTTP_HOST"] . @$_SERVER["REQUEST_URI"],
+                (microtime(true) - $this->mStartTime)
             ];
             $msg = "G11:" . json_encode($rr);
             socket_sendto($this->mSock, $msg, strlen($msg), 0, $this->mServerIp, $this->mServerPort);
