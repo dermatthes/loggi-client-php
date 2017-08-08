@@ -12,6 +12,8 @@ namespace Rudl\Client;
 class RudlClient
 {
 
+    private static $sInstance = null;
+
     private $mSock = null;
     private $mServerIp;
     private $mServerPort;
@@ -22,6 +24,7 @@ class RudlClient
 
     public function __construct($logIp, $logPort=62111)
     {
+        self::$sInstance = $this;
         $this->mSock = socket_create(AF_INET, SOCK_DGRAM, SOL_UDP);
         $this->mServerIp = $logIp;
         $this->mServerPort = $logPort;
@@ -75,5 +78,12 @@ class RudlClient
         });
     }
 
+
+    /**
+     * @return null|RudlClient
+     */
+    public static function Get() {
+        return self::$sInstance;
+    }
 
 }
