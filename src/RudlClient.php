@@ -41,21 +41,7 @@ class RudlClient
     }
 
 
-    public function sendMessage ($msgId, array $message) {
-        $ru = getrusage();
-        $rr = [
-            11,
-            $this->mSysId,
-            gethostname(),
-            $this->mAccountId,
-            @$_SERVER["HTTP_X_FORWARDED_FOR"],
-            memory_get_peak_usage(),
-            $ru["ru_utime.tv_sec"] + ($ru["ru_utime.tv_usec"] * 0.000001) + 0.001,
-            $ru["ru_stime.tv_sec"] + ($ru["ru_utime.tv_usec"] * 0.000001) + 0.001
-        ];
-        $msg = "G{$msgId}:" . json_encode($rr);
-        socket_sendto($this->mSock, $msg, strlen($msg), 0, $this->mServerIp, $this->mServerPort);
-    }
+
 
 
     public function registerResourceLogging () {
