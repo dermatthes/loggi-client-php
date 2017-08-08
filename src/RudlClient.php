@@ -26,7 +26,7 @@ class RudlClient
 
     public function __construct($logIp, $logPort=62111)
     {
-        $this->mStartupRu = getrusage();
+        $this->mStartupRu = getrusage(); // Collect the startup RU-Usage (To prevent double-counting when apache keepalive is switched on)
         self::$sInstance = $this;
         $this->mSock = socket_create(AF_INET, SOCK_DGRAM, SOL_UDP);
         $this->mServerIp = $logIp;
