@@ -62,7 +62,6 @@ class RudlClient
         register_shutdown_function(function () {
             $ru = getrusage();
             $rr = [
-                11,
                 $this->mSysId,
                 gethostname(),
                 $this->mAccountId,
