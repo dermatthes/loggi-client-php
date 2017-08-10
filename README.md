@@ -1,4 +1,5 @@
 # rudl-client-php
+
 Cluster logging, request-tracking, accounting (UDP) client driver for PHP 5/7
 
 
@@ -9,10 +10,11 @@ to see it in Action. It's Big-Data (up to 190.000 requests/second per Rudl-insta
 
 - __Remote Logging__: Log hundreds of Servers, Projects, Microservices to one or more Rudl Endpoints
 - __Fast & Reliable__: Rudl Messages are being sent by UDP. This is ***fast (<0.00001 sec/message)*** and reliable in case of Endpoint failure
-- __Per Request Logging__: Rudl logs each request including accounting information (CPU Time, Traffic consumed, Errors/Exceptions)
+- __Per Request Logging__: Rudl logs every single request including accounting information (CPU Time, Traffic consumed, Errors/Exceptions). Analyse performance issues or dos-attacks in an early stage. 
 - __Big Data__: Analyze what you want using MongoDB Aggregation Framework and fancy graphing
 - __PSR4 & Framework integration__: Rudl client integrates with your favorite Framework
 - __Syslog aware__: Rudl is aware of the syslog remote logging protocol
+- __Anonymizer__: Make your logs anonymous client-side
 
 See our demos at __[Rudl - Open-Source Cluster Log Analyzer](https://github.com/dermatthes/rudl-frontend)__
 
@@ -40,5 +42,17 @@ That's it. This example will:
 - Log Exceptions
 
 ### Request-Based resource logging
+
+``RudlClient::registerRequestLogging()`` will register a shutdown-function and log information about the
+request including:
+
+- CPU Time consumed
+- CPU System Type consumed
+- Memory Peak usage
+- Total script runtime
+- Hostname and Request URI
+- Client IP-Address
+
+### Exception Catching
 
 
