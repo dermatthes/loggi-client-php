@@ -1,56 +1,43 @@
 # rudl-client-php
-Cluster logging (UDP) client driver for PHP 5/7
+Cluster logging, request-tracking, accounting (UDP) client driver for PHP 5/7
 
 
 ## Features
 
-Loggi sends fast UDP Messages to a central Logging Instance. It transmits
-Hostname and ressource usage information for every request. All data is
-encrypted with a Private/Publickey.
+This project is the client-side library. Check out __[Rudl - Open-Source Cluster Log Analyzer](https://github.com/dermatthes/rudl-frontend)__
+to see it in Action. It's Big-Data (up to 190.000 requests/second per Rudl-instance). It's cluster aware. And it's setup within __30 seconds__ using zero config __docker container__.
 
-Loggi will create a private/publickey pair for every single UnitToken.
+- __Remote Logging__: Log hundreds of Servers, Projects, Microservices to one or more Rudl Endpoints
+- __Fast & Reliable__: Rudl Messages are being sent by UDP. This is ***fast (<0.00001 sec/message)*** and reliable in case of Endpoint failure
+- __Per Request Logging__: Rudl logs each request including accounting information (CPU Time, Traffic consumed, Errors/Exceptions)
+- __Big Data__: Analyze what you want using MongoDB Aggregation Framework and fancy graphing
+- __PSR4 & Framework integration__: Rudl client integrates with your favorite Framework
+- __Syslog aware__: Rudl is aware of the syslog remote logging protocol
 
-UDP data is beeing send encrypted to the endpoint.
+See our demos at __[Rudl - Open-Source Cluster Log Analyzer](https://github.com/dermatthes/rudl-frontend)__
 
-Initialize Loggi:
+## Easy to use
 
-```
-$driver = new LogDriver("<token>", "https://endpoint-url");
-$driver->setPublicKeyCache("/tmp/");
-$driver->connect();
-
-```
-
-This command will try to read the loggi - config-file from /tmp/loggi-<sha1_of_token>.json
-
-If it is not found or outdated, loggi will connect the endpoint-url via tcp to obtain a
-new config-file.
-
-## Loggi-Conf Format
+Install it using composer:
 
 ```
-{
-    "version": "1",
-    "sysId": "Xz7B4",
-    "validTo": timestamp, 
-    "publicKey": "Public KEy"
-}
+composer require rudl/logger
 ```
 
-The configuration-file is normally valid for one week.
+and setup the Request Logging:
 
+```php
+RudlClient::Init("rudl.endpoint.ip")
+    ->setSystemId("FancyApp")
+    ->registerExceptionHandler()
+    ->registerRequestLogging();
+```
 
-## Features
+That's it. This example will:
 
-- Error/Exception Logging
-- Ressource Usage (Process-Time, Memory-Usage, Data-Transfer) by IP and User
-- Individual Logging (e.g. Click-Through rates, A/B Tests)
-
-### Error-Logging
-
-Register Loggi Error/Exception Logging:
-
-
+- Make this Project findable under its name `FancyApp`
+- Log CPU Usage, Total Script time, Memory usage, Request, Traffic (in/out) for each request
+- Log Exceptions
 
 ### Request-Based resource logging
 

@@ -37,24 +37,23 @@ class RudlClient
     }
 
 
-    public function setSysId ($id) {
+    public function setSysId ($id)
+    {
         $this->mSysId = $id;
     }
 
-    public function setAccountId ($id) {
+    public function setAccountId ($id)
+    {
         $this->mAccountId = $id;
     }
 
-
-    public function addAnonymizer ($preg, $replace) {
+    public function addAnonymizer ($preg, $replace)
+    {
         $this->mAnonymizer[] = [$preg, $replace];
     }
 
-
-
-
-    public function registerResourceLogging () {
-
+    public function registerResourceLogging ()
+    {
         register_shutdown_function(function () {
             $ru = getrusage();
             $url = "//" . @$_SERVER["HTTP_HOST"] . @$_SERVER["REQUEST_URI"];
@@ -77,11 +76,25 @@ class RudlClient
         });
     }
 
+    /**
+     * @param $logHost
+     * @param int $logPort
+     * @return RudlClient
+     */
+    public static function Init($logHost, $logPort=62111)
+    {
+        if (self::$sInstance !== null)
+            throw new \InvalidArgumentException("RudlClient::Init(): Rudl was already initialized.");
+        return new self($logHost, $logPort);
+    }
 
     /**
      * @return null|RudlClient
      */
-    public static function Get() {
+    public static function Get()
+    {
+        if (self::$sInstance === null)
+            throw new \InvalidArgumentException("RudlClient is not initialized. Call RudlClient::Init() before.");
         return self::$sInstance;
     }
 
